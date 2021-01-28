@@ -5,9 +5,11 @@ import subway.station.domain.Station;
 import java.util.List;
 
 public class Line {
+
     private Long id;
     private String name;
     private String color;
+    private Long extraFare;
     private Sections sections = new Sections();
 
     public Line() {
@@ -31,6 +33,15 @@ public class Line {
         this.sections = sections;
     }
 
+    public Line(Long id, String name, String color, Long extraFare, Sections sections) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.extraFare = extraFare;
+        this.sections = sections;
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -41,6 +52,10 @@ public class Line {
 
     public String getColor() {
         return color;
+    }
+
+    public Long getExtraFare() {
+        return extraFare;
     }
 
     public Sections getSections() {

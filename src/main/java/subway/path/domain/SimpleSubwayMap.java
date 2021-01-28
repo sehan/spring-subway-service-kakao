@@ -1,16 +1,13 @@
-package subway.path.application;
+package subway.path.domain;
 
-import org.springframework.stereotype.Service;
-import subway.path.domain.*;
 import subway.station.domain.Station;
 
-@Service
-public class SimplePathService implements PathService {
+public class SimpleSubwayMap implements SubwayMap {
 
     private PathFinder pathFinder;
     private FareCalculator fareCalculator;
 
-    public SimplePathService(PathFinder pathFinder, FareCalculator fareCalculator) {
+    public SimpleSubwayMap(SimplePathFinder pathFinder, FareCalculator fareCalculator) {
         this.pathFinder = pathFinder;
         this.fareCalculator = fareCalculator;
     }

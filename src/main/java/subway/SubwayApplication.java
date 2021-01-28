@@ -6,12 +6,14 @@ import org.springframework.context.annotation.Bean;
 import subway.line.dao.LineDao;
 import subway.line.domain.Line;
 import subway.line.domain.Section;
-import subway.path.domain.SimplePathFinder;
-import subway.path.domain.PathFinder;
+import subway.path.domain.*;
 import subway.station.dao.StationDao;
 import subway.station.domain.Station;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
@@ -22,7 +24,7 @@ public class SubwayApplication {
     }
 
     @Bean
-    public PathFinder pathFinder(LineDao lineDao, StationDao stationDao){
+    public SubwayMap subwayMap(LineDao lineDao, StationDao stationDao){
         List<Line> lines = lineDao.findAll();
         List<Station> allStations = stationDao.findAll();
 
@@ -30,7 +32,25 @@ public class SubwayApplication {
                 .flatMap(line -> line.getSections().getSections().stream())
                 .distinct()
                 .collect(Collectors.toList());
-        return new SimplePathFinder(allStations, allSections);
+
+        Map<Section, Integer> lineAdditionFareData = new HashMap<>();
+        for( Line line : lines ){
+            Long extraFare = line.getExtraFare();
+            line.getSections()
+                    .getSections()
+                    .stream()
+                    .forEach(section -> lineAdditionFareData.put(section, extraFare.intValue()));
+        }
+
+        List<FarePolicy> farePolicies = Arrays.asList(
+                new DistanceFarePolicy(),
+                new LineAdditionFarePolicy(lineAdditionFareData)
+        );
+
+        return new SimpleSubwayMap(
+                new SimplePathFinder(allStations, allSections),
+                new SimpleFareCalculator(farePolicies));
     }
+
 }
 
