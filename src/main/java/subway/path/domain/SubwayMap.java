@@ -6,4 +6,6 @@ public interface SubwayMap {
 
     PathInfo findPath(Station start, Station end );
 
+    PathInfo findPath(Station start, Station end, Age age );
+
 }

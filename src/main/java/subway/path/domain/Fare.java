@@ -15,7 +15,15 @@ public class Fare {
         return fare;
     }
 
-    public void add(int addition ) {
-        fare += addition;
+    public void plus(int plusValue ) {
+        fare += plusValue;
+    }
+
+    public void minus(int minusValue) {
+        fare -= minusValue;
+    }
+
+    public void multiply(double value) {
+        fare *= value;
     }
 }

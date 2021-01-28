@@ -45,8 +45,8 @@ public class DistanceFarePolicy implements FarePolicy{
 
     @Override
     public Fare apply(Fare fare, Path path, Age age) {
-        fare.add(DEFAULT_FARE);
-        fare.add(AdditionFare.calFare(path.getDistance()));
+        fare.plus(DEFAULT_FARE);
+        fare.plus(AdditionFare.calFare(path.getDistance()));
         return fare;
     }
 

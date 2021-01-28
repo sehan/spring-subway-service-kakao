@@ -22,7 +22,7 @@ public interface Age {
 
         @Override
         public int getValue() {
-            return 0;
+            return age;
         }
     }
 }

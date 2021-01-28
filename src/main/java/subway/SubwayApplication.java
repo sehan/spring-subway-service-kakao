@@ -44,7 +44,8 @@ public class SubwayApplication {
 
         List<FarePolicy> farePolicies = Arrays.asList(
                 new DistanceFarePolicy(),
-                new LineAdditionFarePolicy(lineAdditionFareData)
+                new LineAdditionFarePolicy(lineAdditionFareData),
+                new AgeFarePolicy()
         );
 
         return new SimpleSubwayMap(

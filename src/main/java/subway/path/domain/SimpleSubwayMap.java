@@ -14,8 +14,14 @@ public class SimpleSubwayMap implements SubwayMap {
 
     @Override
     public PathInfo findPath(Station start, Station end) {
+        return findPath(start, end, Age.adult());
+    }
+
+    @Override
+    public PathInfo findPath(Station start, Station end, Age age) {
         Path path = pathFinder.findShortestPath(start, end);
-        Fare fare = fareCalculator.calculate(path, Age.of(13));
+        Fare fare = fareCalculator.calculate(path, age);
         return PathInfo.of(path, fare);
+
     }
 }

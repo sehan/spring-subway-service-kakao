@@ -23,7 +23,7 @@ public class LineAdditionFarePolicy implements FarePolicy{
     public Fare apply(Fare fare, Path path, Age age) {
 
         List<Integer> additionFares = findLineAdditionFare(path.getStations());
-        fare.add(additionFares.stream()
+        fare.plus(additionFares.stream()
                 .reduce(Integer::max)
                 .get());
 
