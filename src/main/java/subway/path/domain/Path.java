@@ -32,6 +32,7 @@ public interface Path {
         public int getDistance() {
             return distance;
         }
+
     }
 }
 

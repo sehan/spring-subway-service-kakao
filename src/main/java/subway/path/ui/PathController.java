@@ -4,8 +4,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import subway.path.application.PathService;
-import subway.path.domain.Path;
+import subway.path.domain.PathInfo;
+import subway.path.domain.PathService;
 import subway.path.dto.PathResponse;
 import subway.station.application.StationService;
 
@@ -23,10 +23,8 @@ public class PathController {
 
     @GetMapping
     public ResponseEntity<PathResponse> paths(Long source, Long target){
-        Path path = pathService.findPath(stationService.findStationById(source), stationService.findStationById(target));
-
-        return ResponseEntity.ok(PathResponse.of(path));
+        PathInfo pathInfo = pathService.findPath(stationService.findStationById(source), stationService.findStationById(target));
+        return ResponseEntity.ok(PathResponse.of(pathInfo));
     }
-
 
 }

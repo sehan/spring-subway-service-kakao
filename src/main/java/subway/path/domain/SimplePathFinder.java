@@ -10,11 +10,11 @@ import subway.station.domain.Station;
 
 import java.util.List;
 
-public class DefaultPathFinder implements PathFinder {
+public class SimplePathFinder implements PathFinder {
 
     private WeightedGraph<Station, DefaultWeightedEdge> graph;
 
-    public DefaultPathFinder(List<Station> stations, List<Section> sections) {
+    public SimplePathFinder(List<Station> stations, List<Section> sections) {
         graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);
         for (Station station : stations) {
             graph.addVertex(station);

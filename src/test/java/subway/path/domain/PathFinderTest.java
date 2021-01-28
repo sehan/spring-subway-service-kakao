@@ -43,11 +43,11 @@ abstract class PathFinderTest {
 
 }
 
-class DefaultPathFinderTest extends PathFinderTest {
+class SimplePathFinderTest extends PathFinderTest {
 
     @BeforeEach
     void setUp() {
-        pathFinder = new DefaultPathFinder(
+        pathFinder = new SimplePathFinder(
                 Arrays.asList(판교역, 수내역, 정자역, 기흥역, 광교역, 영통역, 서천역),
                 Arrays.asList(분당선1, 분당선2, 분당선3, 분당선4, 신분당선1, 신분당선2, 신분당선3)
         );

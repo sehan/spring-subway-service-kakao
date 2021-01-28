@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import subway.line.dao.LineDao;
 import subway.line.domain.Line;
 import subway.line.domain.Section;
-import subway.path.domain.DefaultPathFinder;
+import subway.path.domain.SimplePathFinder;
 import subway.path.domain.PathFinder;
 import subway.station.dao.StationDao;
 import subway.station.domain.Station;
@@ -30,7 +30,7 @@ public class SubwayApplication {
                 .flatMap(line -> line.getSections().getSections().stream())
                 .distinct()
                 .collect(Collectors.toList());
-        return new DefaultPathFinder(allStations, allSections);
+        return new SimplePathFinder(allStations, allSections);
     }
 }
 
