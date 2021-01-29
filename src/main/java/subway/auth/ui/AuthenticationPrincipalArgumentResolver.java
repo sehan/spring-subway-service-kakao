@@ -12,6 +12,7 @@ import subway.auth.infrastructure.AuthorizationExtractor;
 import subway.member.domain.LoginMember;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArgumentResolver {
     private AuthService authService;
@@ -29,7 +30,11 @@ public class AuthenticationPrincipalArgumentResolver implements HandlerMethodArg
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         String accessToken = AuthorizationExtractor.extract(webRequest.getNativeRequest(HttpServletRequest.class));
+        if(Objects.isNull(accessToken) ) return null;
+
         TokenContext context = authService.getTokenContext(accessToken);
+        if(Objects.isNull(context)) return null;
+
         return context.getItem();
     }
 }

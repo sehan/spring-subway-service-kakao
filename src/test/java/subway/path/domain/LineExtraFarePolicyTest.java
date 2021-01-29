@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LineAdditionFarePolicyTest {
+class LineExtraFarePolicyTest {
 
     Station 판교역 = new Station(1L,"판교역");
     Station 수내역 = new Station(2L,"수내역");
@@ -32,7 +32,7 @@ class LineAdditionFarePolicyTest {
 
         Map<Section, Integer> data = new HashMap<>();
         data.put(new Section(판교역, 정자역, 1), 신분당선.getExtraFare().intValue() );
-        LineAdditionFarePolicy policy = new LineAdditionFarePolicy(data);
+        LineExtraFarePolicy policy = new LineExtraFarePolicy(data);
 
         Fare fare = Fare.of(0);
         Path path = Path.of(Arrays.asList(판교역, 정자역), 1);
@@ -47,7 +47,7 @@ class LineAdditionFarePolicyTest {
         Map<Section, Integer> data = new HashMap<>();
         data.put(new Section(판교역, 정자역, 1), 신분당선.getExtraFare().intValue() );
         data.put(new Section(정자역, 영통역, 10), 분당선.getExtraFare().intValue() );
-        LineAdditionFarePolicy policy = new LineAdditionFarePolicy(data);
+        LineExtraFarePolicy policy = new LineExtraFarePolicy(data);
 
         Fare fare = Fare.of(0);
         Path path = Path.of(Arrays.asList(판교역, 정자역, 영통역), 11);
@@ -63,7 +63,7 @@ class LineAdditionFarePolicyTest {
         data.put(new Section(판교역, 정자역, 1), 신분당선.getExtraFare().intValue() );
         data.put(new Section(정자역, 영통역, 10), 분당선.getExtraFare().intValue() );
         data.put(new Section(영통역, 서천역, 1), 수인선.getExtraFare().intValue() );
-        LineAdditionFarePolicy policy = new LineAdditionFarePolicy(data);
+        LineExtraFarePolicy policy = new LineExtraFarePolicy(data);
 
         Fare fare = Fare.of(0);
         Path path = Path.of(Arrays.asList(판교역, 정자역, 영통역, 서천역), 12);

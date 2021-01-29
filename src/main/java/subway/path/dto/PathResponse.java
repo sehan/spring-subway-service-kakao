@@ -1,5 +1,6 @@
 package subway.path.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import subway.path.domain.PathInfo;
 import subway.station.dto.StationResponse;
 
@@ -27,7 +28,7 @@ public class PathResponse {
                         .map(StationResponse::of)
                         .collect(Collectors.toList()),
                 pathInfo.getDistance(),
-                0);
+                pathInfo.getFare());
     }
 
     public List<StationResponse> getStations() {

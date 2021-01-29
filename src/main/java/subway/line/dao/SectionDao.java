@@ -53,4 +53,8 @@ public class SectionDao {
 
         simpleJdbcInsert.executeBatch(batchValues.toArray(new Map[sections.size()]));
     }
+
+    public List<Section> findAll() {
+        return null;
+    }
 }

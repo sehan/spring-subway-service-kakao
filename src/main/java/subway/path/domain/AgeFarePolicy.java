@@ -34,8 +34,10 @@ public class AgeFarePolicy implements FarePolicy{
         }
 
         public void applyDiscount(Fare fare) {
-            fare.minus(deductedAmount);
-            fare.minus((fare.getValue() * rateOfDiscount)/100);
+            if( rateOfDiscount > 0 ) {
+                int discountFare = (fare.getValue() - deductedAmount) * rateOfDiscount / 100;
+                fare.minus(discountFare);
+            }
         }
     }
 

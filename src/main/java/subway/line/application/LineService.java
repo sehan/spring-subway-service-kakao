@@ -8,6 +8,7 @@ import subway.line.domain.Section;
 import subway.line.dto.LineRequest;
 import subway.line.dto.LineResponse;
 import subway.line.dto.SectionRequest;
+import subway.path.domain.SubwayMap;
 import subway.station.application.StationService;
 import subway.station.domain.Station;
 
@@ -19,16 +20,19 @@ public class LineService {
     private LineDao lineDao;
     private SectionDao sectionDao;
     private StationService stationService;
+    private final SubwayMap subwayMap;
 
-    public LineService(LineDao lineDao, SectionDao sectionDao, StationService stationService) {
+    public LineService(LineDao lineDao, SectionDao sectionDao, StationService stationService, SubwayMap subwayMap) {
         this.lineDao = lineDao;
         this.sectionDao = sectionDao;
         this.stationService = stationService;
+        this.subwayMap = subwayMap;
     }
 
     public LineResponse saveLine(LineRequest request) {
-        Line persistLine = lineDao.insert(new Line(request.getName(), request.getColor()));
+        Line persistLine = lineDao.insert(new Line(request.getName(), request.getColor(), request.getExtraFare()));
         persistLine.addSection(addInitSection(persistLine, request));
+        subwayMap.refresh(lineDao.findAll());
         return LineResponse.of(persistLine);
     }
 
@@ -78,6 +82,10 @@ public class LineService {
 
         sectionDao.deleteByLineId(lineId);
         sectionDao.insertSections(line);
+
+        // section 이 3개가 변경되었기 때문에 subwayMap 에도 반영해 줘야 한다
+//        subwayMap.addSection(new Section(upStation, downStation, request.getDistance()));
+        subwayMap.refresh(lineDao.findAll());
     }
 
     public void removeLineStation(Long lineId, Long stationId) {
@@ -87,6 +95,7 @@ public class LineService {
 
         sectionDao.deleteByLineId(lineId);
         sectionDao.insertSections(line);
+        subwayMap.refresh(lineDao.findAll());
     }
 
 }

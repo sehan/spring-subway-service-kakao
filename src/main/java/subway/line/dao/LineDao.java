@@ -9,10 +9,7 @@ import subway.line.domain.Sections;
 import subway.station.domain.Station;
 
 import javax.sql.DataSource;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -82,12 +79,21 @@ public class LineDao {
 
         List<Section> sections = extractSections(result);
 
+        Integer extraFare = getIntegerValueOrDefalut(result.get(0).get("LINE_EXTRA_FARE"), 0);
+
         return new Line(
                 (Long) result.get(0).get("LINE_ID"),
                 (String) result.get(0).get("LINE_NAME"),
                 (String) result.get(0).get("LINE_COLOR"),
-                (Long) result.get(0).get("LINE_EXTRA_FARE"),
+                extraFare.longValue(),
                 new Sections(sections));
+    }
+
+    private Integer getIntegerValueOrDefalut(Object value, Integer defaultValue) {
+        if(Objects.nonNull(value)){
+            return (int) value;
+        }
+        return defaultValue;
     }
 
     private List<Section> extractSections(List<Map<String, Object>> result) {

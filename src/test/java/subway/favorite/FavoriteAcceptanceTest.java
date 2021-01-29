@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import static subway.line.LineAcceptanceTest.지하철_노선_등록되어_있�
 import static subway.line.SectionAcceptanceTest.지하철_구간_등록되어_있음;
 import static subway.station.StationAcceptanceTest.지하철역_등록되어_있음;
 
+@Disabled
 @DisplayName("즐겨찾기 관련 기능")
 public class FavoriteAcceptanceTest extends AcceptanceTest {
     public static final String EMAIL = "email@email.com";

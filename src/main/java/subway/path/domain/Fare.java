@@ -22,8 +22,4 @@ public class Fare {
     public void minus(int minusValue) {
         fare -= minusValue;
     }
-
-    public void multiply(double value) {
-        fare *= value;
-    }
 }

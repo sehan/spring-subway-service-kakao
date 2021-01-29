@@ -27,7 +27,7 @@ class AgeFarePolicyTest {
         Fare fare = Fare.of(1250);
         policy.apply(fare, null, Age.of(age));
 
-        assertThat(fare.getValue()).isEqualTo(450);
+        assertThat(fare.getValue()).isEqualTo(800);
     }
 
     @DisplayName("연령별 요금할인 적용 ( 13세 이상 19세 미만 )")
@@ -38,7 +38,7 @@ class AgeFarePolicyTest {
         Fare fare = Fare.of(1250);
         policy.apply(fare, null, Age.of(age));
 
-        assertThat(fare.getValue()).isEqualTo(720);
+        assertThat(fare.getValue()).isEqualTo(1070);
     }
 
     @DisplayName("연령별 요금할인 적용 ( 19세 이상 )")

@@ -3,6 +3,7 @@ package subway.line.domain;
 import subway.station.domain.Station;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Line {
 
@@ -19,6 +20,13 @@ public class Line {
         this.name = name;
         this.color = color;
     }
+
+    public Line(String name, String color, Long extraFare) {
+        this.name = name;
+        this.color = color;
+        this.extraFare = extraFare;
+    }
+
 
     public Line(Long id, String name, String color) {
         this.id = id;
@@ -55,7 +63,9 @@ public class Line {
     }
 
     public Long getExtraFare() {
-        return extraFare;
+        if(Objects.nonNull(extraFare))
+            return extraFare;
+        return 0L;
     }
 
     public Sections getSections() {

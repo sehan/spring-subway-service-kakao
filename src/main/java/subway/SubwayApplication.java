@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import subway.line.dao.LineDao;
+import subway.line.dao.SectionDao;
 import subway.line.domain.Line;
 import subway.line.domain.Section;
 import subway.path.domain.*;
@@ -33,24 +34,9 @@ public class SubwayApplication {
                 .distinct()
                 .collect(Collectors.toList());
 
-        Map<Section, Integer> lineAdditionFareData = new HashMap<>();
-        for( Line line : lines ){
-            Long extraFare = line.getExtraFare();
-            line.getSections()
-                    .getSections()
-                    .stream()
-                    .forEach(section -> lineAdditionFareData.put(section, extraFare.intValue()));
-        }
-
-        List<FarePolicy> farePolicies = Arrays.asList(
-                new DistanceFarePolicy(),
-                new LineAdditionFarePolicy(lineAdditionFareData),
-                new AgeFarePolicy()
-        );
-
         return new SimpleSubwayMap(
                 new SimplePathFinder(allStations, allSections),
-                new SimpleFareCalculator(farePolicies));
+                LineExtraFareTable.of(lines));
     }
 
 }
